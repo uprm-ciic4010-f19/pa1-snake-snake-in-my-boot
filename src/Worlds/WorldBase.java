@@ -7,7 +7,7 @@ import Main.Handler;
 
 import java.awt.*;
 import java.util.LinkedList;
-
+import java.awt.Color;
 
 /**
  * Created by AlexVR on 7/2/2018.
@@ -26,8 +26,8 @@ public abstract class WorldBase {
     public Player player;
 
     protected Handler handler;
-
-
+    
+    
     public Boolean appleOnBoard;
     protected Apple apple;
     public Boolean[][] appleLocation;
@@ -52,10 +52,10 @@ public abstract class WorldBase {
     }
 
     public void render(Graphics g){
-
-        for (int i = 0; i <= 800; i = i + GridPixelsize) {
-
-            g.setColor(Color.white);
+    	
+        for (int i = 0; i <= 900; i = i + GridPixelsize) {
+        	
+            g.setColor(new Color(238,130,238));
             g.drawLine(0, i, handler.getWidth() , i);
             g.drawLine(i,0,i,handler.getHeight());
 

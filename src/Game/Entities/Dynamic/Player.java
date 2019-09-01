@@ -104,13 +104,15 @@ public class Player {
         Random r = new Random();
         for (int i = 0; i < handler.getWorld().GridWidthHeightPixelCount; i++) {
             for (int j = 0; j < handler.getWorld().GridWidthHeightPixelCount; j++) {
-                g.setColor(Color.WHITE);
-
+                g.setColor(Color.GREEN);
+                //that color sets the apple and the snake
                 if(playeLocation[i][j]||handler.getWorld().appleLocation[i][j]){
+                	//g.setColor(Color.white);
                     g.fillRect((i*handler.getWorld().GridPixelsize),
                             (j*handler.getWorld().GridPixelsize),
                             handler.getWorld().GridPixelsize,
                             handler.getWorld().GridPixelsize);
+                    		g.setColor(Color.white);
                 }
 
             }
