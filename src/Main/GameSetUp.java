@@ -42,6 +42,7 @@ public class GameSetUp implements Runnable {
     private Handler handler;
 
     //States
+    public State restartState;
     public State gameState;
     public State menuState;
     public State pauseState;
