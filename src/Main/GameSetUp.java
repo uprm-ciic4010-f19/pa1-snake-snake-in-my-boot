@@ -1,6 +1,7 @@
 package Main;
 
 import Display.DisplayScreen;
+import Game.GameStates.GameOverState;
 import Game.GameStates.GameState;
 import Game.GameStates.MenuState;
 import Game.GameStates.PauseState;
@@ -44,6 +45,7 @@ public class GameSetUp implements Runnable {
     //States
     public State restartState;
     public State gameState;
+    public State gameOverState;
     public State menuState;
     public State pauseState;
 
@@ -78,7 +80,7 @@ public class GameSetUp implements Runnable {
 
 
         handler = new Handler(this);
-
+        gameOverState = new GameOverState(handler);
         gameState = new GameState(handler);
         menuState = new MenuState(handler);
         pauseState = new PauseState(handler);

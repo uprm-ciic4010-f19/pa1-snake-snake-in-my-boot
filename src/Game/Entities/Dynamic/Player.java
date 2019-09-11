@@ -1,13 +1,13 @@
 package Game.Entities.Dynamic;
 
-import Main.Handler;
-
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.util.Random;
 
 import Game.GameStates.GameState;
 import Game.GameStates.State;
+import Main.Handler;
 
 /**
  * Created by AlexVR on 7/2/2018.
@@ -20,7 +20,8 @@ public class Player {
 
 	public double score=0.0;
 	public double tempScore;
-	public String stringScore="0";
+	public String stringScore="Score: 0";
+	public int counter=0;
 
 	public int xCoord;
 	public int yCoord;
@@ -62,10 +63,8 @@ public class Player {
 			State.setState(handler.getGame().pauseState);
 		}
 		if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_R)) {
-			
-				handler.getGame().restartState = new GameState(handler);
-				State.setState(handler.getGame().restartState);
-			
+			handler.getGame().restartState = new GameState(handler);
+			State.setState(handler.getGame().restartState);
 		}
 	}
 
@@ -73,6 +72,7 @@ public class Player {
 		handler.getWorld().playerLocation[xCoord][yCoord]=false;
 		int x = xCoord;
 		int y = yCoord;
+
 		switch (direction){
 		case "Left":
 			if(xCoord==0){
@@ -103,7 +103,15 @@ public class Player {
 			}
 			break;
 		}
+
 		handler.getWorld().playerLocation[xCoord][yCoord]=true;
+		for(int tailLength=1; lenght > tailLength; tailLength++) {
+			if(xCoord == handler.getWorld().body.get(tailLength-1).x && yCoord == handler.getWorld().body.get(tailLength-1).y) {
+				State.setState(handler.getGame().gameOverState);
+				System.out.println("You touched the snake " + counter + " times");
+				counter++;
+			}
+		}
 
 
 		if(handler.getWorld().appleLocation[xCoord][yCoord]){
@@ -120,24 +128,37 @@ public class Player {
 
 	public void render(Graphics g,Boolean[][] playeLocation){
 		Random r = new Random();
+		
 		for (int i = 0; i < handler.getWorld().GridWidthHeightPixelCount; i++) {
 			for (int j = 0; j < handler.getWorld().GridWidthHeightPixelCount; j++) {
-				g.setColor(Color.green);		//that color sets the apple and the snake
-				if(playeLocation[i][j]||handler.getWorld().appleLocation[i][j]){
+				
+				
+				if(playeLocation[i][j]){
+					g.setColor(Color.green);
 					g.fillRect((i*handler.getWorld().GridPixelsize),
 							(j*handler.getWorld().GridPixelsize),
 							handler.getWorld().GridPixelsize,
 							handler.getWorld().GridPixelsize);
-					g.setColor(Color.white);
+				}if(handler.getWorld().appleLocation[i][j]) {
+					g.setColor(Color.red);
+					g.fillRect((i*handler.getWorld().GridPixelsize),
+							(j*handler.getWorld().GridPixelsize),
+							handler.getWorld().GridPixelsize,
+							handler.getWorld().GridPixelsize);
 				}
+				
+				
 			}
 		}
 		if(isJustAte()) {
+			
 			setJustAte(false);
 			score = Math.sqrt((2*score)+1)+score;
 			tempScore = score;
-			stringScore = Double.toString(tempScore);	
-		}g.drawString(stringScore, handler.getWorld().GridWidthHeightPixelCount/2, handler.getWorld().GridWidthHeightPixelCount/2);
+			stringScore = "Score: " + Double.toString(tempScore);	
+		}
+		g.setColor(Color.blue);
+		g.drawString(stringScore, handler.getWorld().GridWidthHeightPixelCount/2, handler.getWorld().GridWidthHeightPixelCount/2);
 	}
 
 
