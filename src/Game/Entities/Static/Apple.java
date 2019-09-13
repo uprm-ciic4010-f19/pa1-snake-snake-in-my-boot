@@ -7,7 +7,7 @@ import Main.Handler;
  */
 public class Apple {
 
-    private Handler handler;
+    private static Handler handler;
 
     public int xCoord;
     public int yCoord;
@@ -16,6 +16,16 @@ public class Apple {
         this.handler=handler;
         this.xCoord=x;
         this.yCoord=y;
+    }
+    static public boolean isGood() {
+    		if(handler.getCounter() > handler.getWorld().GridWidthHeightPixelCount) {
+    			
+    			return false;
+    		}
+    		else {
+    			
+    			return true;
+    		}
     }
 
 
