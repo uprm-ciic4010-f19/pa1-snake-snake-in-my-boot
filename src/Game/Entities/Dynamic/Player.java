@@ -24,9 +24,12 @@ public class Player {
 
 	public int xCoord;
 	public int yCoord;
+	int spd = 5;
+	
 
 	public int moveCounter;
-
+//private void int Change;
+	
 	public String direction;//is your first name one?
 
 	public Player(Handler handler){
@@ -42,9 +45,10 @@ public class Player {
 
 	public void tick(){
 		moveCounter++;
-		if(moveCounter>=5) {
+		if(moveCounter>=spd) {
 			checkCollisionAndMove();
-			moveCounter=0;
+			moveCounter=1;
+			//Change(moveCounter);
 		}
 		if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_UP) && direction != "Down"){
 			direction="Up";
@@ -57,11 +61,14 @@ public class Player {
 		}if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_N)) {
 			Eat();
 		}if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_P)) {
-
+		
+		}if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_ADD)) {	
+			if (spd<=5&&spd>0)spd--;
+		}if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_SUBTRACT)) {	
+			if (spd<5&&spd>=0)spd++;
 		}if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_ESCAPE)){
 			State.setState(handler.getGame().pauseState);
-		}
-		if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_R)) {
+		}if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_R)) {
 			
 				handler.getGame().restartState = new GameState(handler);
 				State.setState(handler.getGame().restartState);
@@ -76,28 +83,28 @@ public class Player {
 		switch (direction){
 		case "Left":
 			if(xCoord==0){
-				kill();
+				xCoord = handler.getWorld().GridWidthHeightPixelCount - 1;
 			}else{
 				xCoord--;
 			}
 			break;
 		case "Right":
 			if(xCoord==handler.getWorld().GridWidthHeightPixelCount-1){
-				kill();
+				xCoord = 0;
 			}else{
 				xCoord++;
 			}
 			break;
 		case "Up":
 			if(yCoord==0){
-				kill();
+				yCoord = handler.getWorld().GridWidthHeightPixelCount - 1;
 			}else{
 				yCoord--;
 			}
 			break;
 		case "Down":
 			if(yCoord==handler.getWorld().GridWidthHeightPixelCount-1){
-				kill();
+				yCoord = 0;
 			}else{
 				yCoord++;
 			}
@@ -134,6 +141,8 @@ public class Player {
 		}
 		if(isJustAte()) {
 			setJustAte(false);
+			//Player.tick()
+			//moveCounter = moveCounter+1100;
 			score = Math.sqrt((2*score)+1)+score;
 			tempScore = score;
 			stringScore = Double.toString(tempScore);	
@@ -144,6 +153,7 @@ public class Player {
 	public void Eat(){
 		setJustAte(true);
 		lenght++;
+		if (spd<=5&&spd>0)spd--;
 		Tail tail= null;
 		if (!handler.getKeyManager().keyJustPressed(KeyEvent.VK_N)) {
 			handler.getWorld().appleLocation[xCoord][yCoord]=false;

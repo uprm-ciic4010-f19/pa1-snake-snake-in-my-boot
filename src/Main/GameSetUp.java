@@ -144,7 +144,6 @@ public class GameSetUp implements Runnable {
                 ticks++;
                 delta--;
             }
-
             if(timer >= 1000000000){
                 ticks = 0;
                 timer = 0;

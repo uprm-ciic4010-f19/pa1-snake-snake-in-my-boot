@@ -48,7 +48,7 @@ public class WorldOne extends WorldBase{
 
     @Override
     public void render(Graphics g){
-        g.setColor(Color.white);
+      //  g.setColor(new Color(238,130,238));
         super.render(g);
         player.render(g,playerLocation);
     }
