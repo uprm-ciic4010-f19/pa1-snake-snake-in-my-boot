@@ -29,7 +29,7 @@ public abstract class WorldBase {
     
     
     public Boolean appleOnBoard;
-    protected Apple apple;
+    public Apple apple;
     public Boolean[][] appleLocation;
 
 
@@ -40,29 +40,19 @@ public abstract class WorldBase {
 
     public WorldBase(Handler handler){
         this.handler = handler;
-
         appleOnBoard = false;
-
-
     }
     public void tick(){
-
-
-
+    	
     }
 
     public void render(Graphics g){
     	
-        for (int i = 0; i <= 900; i = i + GridPixelsize) {
-        	
-            g.setColor(new Color(238,130,238));
+        for (int i = 0; i <= 900; i = i + GridPixelsize) {   	
+            g.setColor(new Color(75,0,130));
             g.drawLine(0, i, handler.getWidth() , i);
             g.drawLine(i,0,i,handler.getHeight());
 
         }
-
-
-
     }
-
 }

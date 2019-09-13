@@ -27,9 +27,12 @@ public class Player {
 
 	public int xCoord;
 	public int yCoord;
+	int spd = 10;
+	
 
 	public int moveCounter;
-
+//private void int Change;
+	
 	public String direction;//is your first name one?
 
 	public Player(Handler handler){
@@ -48,10 +51,13 @@ public class Player {
 		int x = xCoord;
 		int y = yCoord;
 		moveCounter++;
-		if(moveCounter>=5) {
+		if(moveCounter>=spd) {
 			checkCollisionAndMove();
-			moveCounter=0;
+			moveCounter=1;
 			handler.setCounter(handler.getCounter()+1);
+			
+			//Change(moveCounter);
+
 		}
 		if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_UP) && direction != "Down"){
 			direction="Up";
@@ -63,16 +69,17 @@ public class Player {
 			direction="Right";
 		}if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_N)) {
 			Eat();
-		}if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_P)) {
-			
+		}if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_EQUALS)) {	
+			if (spd<=10&&spd>0)spd--;
+		}if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_SUBTRACT)) {	
+			if (spd<10&&spd>=0)spd++;
 		}if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_ESCAPE)){
 			State.setState(handler.getGame().pauseState);
-		}
-		if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_R)) {
+		}if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_R)) {
 			handler.setCounter(0);
 			handler.getGame().restartState = new GameState(handler);
 			State.setState(handler.getGame().restartState);
-			
+
 		}
 	}
 
@@ -84,28 +91,28 @@ public class Player {
 		switch (direction){
 		case "Left":
 			if(xCoord==0){
-				kill();
+				xCoord = handler.getWorld().GridWidthHeightPixelCount - 1;
 			}else{
 				xCoord--;
 			}
 			break;
 		case "Right":
 			if(xCoord==handler.getWorld().GridWidthHeightPixelCount-1){
-				kill();
+				xCoord = 0;
 			}else{
 				xCoord++;
 			}
 			break;
 		case "Up":
 			if(yCoord==0){
-				kill();
+				yCoord = handler.getWorld().GridWidthHeightPixelCount - 1;
 			}else{
 				yCoord--;
 			}
 			break;
 		case "Down":
 			if(yCoord==handler.getWorld().GridWidthHeightPixelCount-1){
-				kill();
+				yCoord = 0;
 			}else{
 				yCoord++;
 			}
@@ -184,9 +191,7 @@ public class Player {
 				}
 			}
 		}
-		
-		
-		g.setColor(Color.WHITE);
+		g.setColor(Color.white);
 		g.drawString(stringScore, handler.getWorld().GridWidthHeightPixelCount/2, handler.getWorld().GridWidthHeightPixelCount/2);
 	}
 
@@ -194,6 +199,7 @@ public class Player {
 	public void Eat(){
 		setJustAte(true);
 		lenght++;
+		if (spd<=5&&spd>0)spd--;
 		Tail tail= null;
 		handler.setCounter(0);
 		if (!handler.getKeyManager().keyJustPressed(KeyEvent.VK_N)) {

@@ -1,5 +1,6 @@
 package Main;
 
+import Game.Entities.Dynamic.Player;
 import Input.KeyManager;
 import Input.MouseManager;
 import Worlds.WorldBase;
@@ -14,6 +15,7 @@ public class Handler {
 
     private GameSetUp game;
     private WorldBase world;
+	public int counter=0;
 
     public Handler(GameSetUp game){
         this.game = game;
@@ -49,6 +51,12 @@ public class Handler {
 
     public void setWorld(WorldBase world) {
         this.world = world;
+    }
+    public int getCounter() {
+    		return counter;
+    }
+    public void setCounter(int counter) {
+    		this.counter = counter;
     }
 
 

@@ -1,11 +1,10 @@
 package Worlds;
 
-import Game.Entities.Dynamic.Tail;
+import java.awt.Graphics;
+import java.util.Random;
+
 import Game.Entities.Static.Apple;
 import Main.Handler;
-
-import java.awt.*;
-import java.util.Random;
 
 /**
  * Created by AlexVR on 7/2/2018.
@@ -44,11 +43,11 @@ public class WorldOne extends WorldBase{
 
 			apple = new Apple(handler,appleX,appley);
 			appleLocation[appleX][appley]=true;
-
-
-
 		}
 	}
+
+
+
 
 	@Override
 	public void render(Graphics g){
