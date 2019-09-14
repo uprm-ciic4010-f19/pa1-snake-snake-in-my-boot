@@ -27,10 +27,10 @@ public class Player {
 
 	public int xCoord;
 	public int yCoord;
-	int spd = 10;
+	double spd = 5;
 	
 
-	public int moveCounter;
+	public double moveCounter;
 //private void int Change;
 	
 	public String direction;//is your first name one?
@@ -70,9 +70,13 @@ public class Player {
 		}if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_N)) {
 			Eat();
 		}if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_EQUALS)) {	
-			if (spd<=10&&spd>0)spd--;
-		}if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_SUBTRACT)) {	
-			if (spd<10&&spd>=0)spd++;
+			if (spd<=5&&spd>0) {
+				spd = spd- 0.5;
+			};
+		}if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_MINUS)) {				
+			if (spd<5&&spd>=0) {
+				spd = spd + 0.5;
+			}
 		}if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_ESCAPE)){
 			State.setState(handler.getGame().pauseState);
 		}if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_R)) {
@@ -132,7 +136,7 @@ public class Player {
 		if(!handler.getWorld().body.isEmpty()) {
 			handler.getWorld().playerLocation[handler.getWorld().body.getLast().x][handler.getWorld().body.getLast().y] = false;
 			handler.getWorld().body.removeLast();
-			handler.getWorld().body.addFirst(new Tail(x, y,handler));
+			handler.getWorld().body.addFirst(new Tail(x, y,handler));	
 		}
 
 	}
@@ -170,23 +174,23 @@ public class Player {
 				
 				if(isJustAte()) {
 					if(Apple.isGood()) {
-						System.out.println("true");
 						setJustAte(false);
 						score = Math.sqrt((2*score)+1)+score;
 						tempScore = Math.round(score* 100.0) / 100.0;
 						stringScore = "Score: " + Double.toString(tempScore);
-
+						
+						handler.setCounter(0);
 						
 					}else {
-						System.out.println("false");
 						setJustAte(false);
 						score = score - Math.sqrt((2*score)+1);
 						if (score < 0){
 							score = 0.0;
 						}
 						tempScore = Math.round(score* 100.0) / 100.0;
-						stringScore = "Score: " + Double.toString(tempScore);
+						stringScore = "Score: " + Double.toString(tempScore);					
 						
+						handler.setCounter(0);
 					}
 				}
 			}
@@ -201,7 +205,7 @@ public class Player {
 		lenght++;
 		if (spd<=5&&spd>0)spd--;
 		Tail tail= null;
-		handler.setCounter(0);
+		
 		if (!handler.getKeyManager().keyJustPressed(KeyEvent.VK_N)) {
 			handler.getWorld().appleLocation[xCoord][yCoord]=false;
 			handler.getWorld().appleOnBoard=false;
