@@ -19,11 +19,9 @@ public class Apple {
     }
     static public boolean isGood() {
     		if(handler.getCounter() > handler.getWorld().GridWidthHeightPixelCount) {
-    			
     			return false;
     		}
-    		else {
-    			
+    		else {    			
     			return true;
     		}
     }

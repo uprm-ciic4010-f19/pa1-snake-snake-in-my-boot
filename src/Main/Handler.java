@@ -16,6 +16,7 @@ public class Handler {
     private GameSetUp game;
     private WorldBase world;
 	public int counter=0;
+	
 
     public Handler(GameSetUp game){
         this.game = game;

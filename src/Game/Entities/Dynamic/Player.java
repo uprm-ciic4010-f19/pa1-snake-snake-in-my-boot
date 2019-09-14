@@ -71,11 +71,11 @@ public class Player {
 			Eat();
 		}if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_EQUALS)) {	
 			if (spd<=5&&spd>0) {
-				spd = spd- 0.5;
+				spd = spd- 0.25;
 			};
 		}if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_MINUS)) {				
 			if (spd<5&&spd>=0) {
-				spd = spd + 0.5;
+				spd = spd + 0.25;
 			}
 		}if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_ESCAPE)){
 			State.setState(handler.getGame().pauseState);
@@ -83,7 +83,6 @@ public class Player {
 			handler.setCounter(0);
 			handler.getGame().restartState = new GameState(handler);
 			State.setState(handler.getGame().restartState);
-
 		}
 	}
 
@@ -136,6 +135,8 @@ public class Player {
 		if(!handler.getWorld().body.isEmpty()) {
 			handler.getWorld().playerLocation[handler.getWorld().body.getLast().x][handler.getWorld().body.getLast().y] = false;
 			handler.getWorld().body.removeLast();
+			
+			
 			handler.getWorld().body.addFirst(new Tail(x, y,handler));	
 		}
 
@@ -203,7 +204,9 @@ public class Player {
 	public void Eat(){
 		setJustAte(true);
 		lenght++;
-		if (spd<=5&&spd>0)spd--;
+		if (spd<=5&&spd>0) {
+			spd=spd-0.25;
+		}
 		Tail tail= null;
 		
 		if (!handler.getKeyManager().keyJustPressed(KeyEvent.VK_N)) {
